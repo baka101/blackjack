@@ -30,6 +30,7 @@ class window.AppView extends Backbone.View
   handleWinner: ->
     @$('.hit-button').hide()
     @$('.stand-button').hide()
+    @$('.bet-button').hide()
     @showWinner()
 
   showWinner: ->

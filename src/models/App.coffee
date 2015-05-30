@@ -5,6 +5,7 @@ class window.App extends Backbone.Model
   initialize: ->
     @startNewGame()
     @setupChipsModel()
+    @setupEventListeners()
     # @get('playerHand').on 'bust', =>
     #   @set 'winner', 'dealer'
     # @get('dealerHand').on 'bust', =>
@@ -17,6 +18,21 @@ class window.App extends Backbone.Model
 
   startNewGame: ->
     @set 'game', game = new GameModel()
+    @setupEventListeners()
 
   setupChipsModel: ->
     @set 'chips', chips = new ChipsModel()
+
+  settleChips: ->
+
+    winnerName = @get('game').get('winner')
+
+    if winnerName == 'player'
+      @get('chips').playerWin()
+    else if winnerName == 'dealer'
+      @get('chips').dealerWin()
+    else if winnerName == 'tie'
+      @get('chips').tie()
+
+  setupEventListeners: ->
+    @get('game').on 'gotWinner', @settleChips, @
