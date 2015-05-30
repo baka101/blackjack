@@ -28,7 +28,6 @@ class window.Hand extends Backbone.Collection
 
   checkBust: ->
     # lowestScore = Math.min.apply null, @scores()
-
     if @checkScore() > 21
       @bust()
 
@@ -36,7 +35,6 @@ class window.Hand extends Backbone.Collection
     @trigger 'bust'
 
   dealerTurn: ->
-
     if not @at(0).get 'revealed'
       @at(0).flip()
 
@@ -45,8 +43,8 @@ class window.Hand extends Backbone.Collection
     if @checkScore() >= 17 and @checkScore() <= 21
       @stand()
 
-    else if @checkScore() > 21
-      @bust()
+    # else if @checkScore() > 21
+    #   @bust()
 
   checkScore: ->
     if (Math.max.apply null, @scores()) <= 21

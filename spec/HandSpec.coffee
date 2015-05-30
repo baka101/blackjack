@@ -19,6 +19,7 @@ describe 'hand collection spec', ->
       hand.cheat 12, 1
       hand.cheat 12, 1
       expect(bustSpy).to.have.been.called
+      Hand.prototype.bust.restore()
   describe 'dealerStand', ->
     it 'should stand when the score is between 17 and 21', ->
       standSpy = sinon.spy Hand.prototype, 'stand'

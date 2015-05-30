@@ -3,6 +3,7 @@ class window.AppView extends Backbone.View
     <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
     <button class="deal-button">Deal Again, Jerk!</button>
     <div class="winner-box"></div>
+    <div class="chips"></div>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
   '
@@ -10,11 +11,13 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('game').get('playerHand').hit()
     'click .stand-button': -> @model.get('game').get('playerHand').stand()
-    'click .deal-button': -> @model.startNewGame()
+    'click .deal-button': ->
+      @model.startNewGame()
+      @setupEventListeners()
+      @render()
 
   initialize: ->
-    @model.get('game').on 'change:winner', @handleWinner, @
-    @model.on 'change', @render, @
+    @setupEventListeners()
     @render()
 
   render: ->
@@ -22,10 +25,11 @@ class window.AppView extends Backbone.View
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get('game').get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get('game').get 'dealerHand').el
+    @$('.chips').html new ChipsView(model: @model.get 'chips').el
 
   handleWinner: ->
-    @$('.hit-button').toggle()
-    @$('.stand-button').toggle()
+    @$('.hit-button').hide()
+    @$('.stand-button').hide()
     @showWinner()
 
   showWinner: ->
@@ -37,3 +41,6 @@ class window.AppView extends Backbone.View
       @$('.winner-box').html "<h1>Hey you won! Go start a band.</h1>"
     else if winnerName == "dealer"
       @$('.winner-box').html "<h1>You got served. Play again.</h1>"
+
+  setupEventListeners: ->
+    @model.get('game').on 'gotWinner', @handleWinner, @

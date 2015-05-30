@@ -1,19 +1,11 @@
 class window.GameModel extends Backbone.Model
 
-  winner: null
+
 
   initialize: ->
+    @set 'winner', null
     @dealNewDeck()
-    @get('playerHand').on 'bust', =>
-      @set 'winner', 'dealer'
-    @get('dealerHand').on 'bust', =>
-      @set 'winner', 'player'
-    @get('playerHand').on 'stand', @callDealerTurn
-    @get('dealerHand').on 'stand', =>
-      playerScore = @get('playerHand').checkScore()
-      dealerScore = @get('dealerHand').checkScore()
-      @compareScores playerScore, dealerScore
-
+    @setupEventListeners()
 
   compareScores: (playerScore, dealerScore) ->
     if playerScore == dealerScore
@@ -22,6 +14,7 @@ class window.GameModel extends Backbone.Model
       @set 'winner', 'player'
     else if playerScore < dealerScore
       @set 'winner', 'dealer'
+    @trigger 'gotWinner', @
 
   callDealerTurn: =>
     @get('dealerHand').dealerTurn()
@@ -31,3 +24,16 @@ class window.GameModel extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     @trigger 'newDeck', @
+
+  setupEventListeners: ->
+    @get('playerHand').on 'bust', =>
+      @set 'winner', 'dealer'
+      @trigger 'gotWinner', @
+    @get('dealerHand').on 'bust', =>
+      @set 'winner', 'player'
+      @trigger 'gotWinner', @
+    @get('playerHand').on 'stand', @callDealerTurn
+    @get('dealerHand').on 'stand', =>
+      playerScore = @get('playerHand').checkScore()
+      dealerScore = @get('dealerHand').checkScore()
+      @compareScores playerScore, dealerScore

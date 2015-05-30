@@ -4,6 +4,7 @@ class window.App extends Backbone.Model
 
   initialize: ->
     @startNewGame()
+    @setupChipsModel()
     # @get('playerHand').on 'bust', =>
     #   @set 'winner', 'dealer'
     # @get('dealerHand').on 'bust', =>
@@ -16,3 +17,6 @@ class window.App extends Backbone.Model
 
   startNewGame: ->
     @set 'game', game = new GameModel()
+
+  setupChipsModel: ->
+    @set 'chips', chips = new ChipsModel()
