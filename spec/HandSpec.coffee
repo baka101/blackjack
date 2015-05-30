@@ -27,4 +27,16 @@ describe 'hand collection spec', ->
       hand.cheat 9, 1
       hand.dealerTurn()
       expect(standSpy).to.have.been.called
+  describe 'describe super Ace behaviour', ->
+    it 'should report score of 21 for ace and 10', ->
+      hand.reset()
+      hand.cheat 10, 1
+      hand.cheat 1, 1
+      assert.strictEqual hand.checkScore(), 21
+    it 'should report score of 21 for 10, 10, and ace', ->
+      hand.reset()
+      hand.cheat 10, 1
+      hand.cheat 10, 0
+      hand.cheat 1, 1
+      assert.strictEqual hand.checkScore(), 21
 

@@ -49,7 +49,10 @@ class window.Hand extends Backbone.Collection
       @bust()
 
   checkScore: ->
-    Math.min.apply null, @scores()
+    if (Math.max.apply null, @scores()) <= 21
+      Math.max.apply null, @scores()
+    else
+      Math.min.apply null, @scores()
 
   cheat: (rank, suit) ->
     card = new Card rank: rank, suit: suit
