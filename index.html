@@ -10,8 +10,10 @@
 
     <script src="compiled/src/models/Card.js"></script>
     <script src="compiled/src/collections/Hand.js"></script>
+    <script src="compiled/src/models/GameModel.js"></script>
     <script src="compiled/src/collections/Deck.js"></script>
     <script src="compiled/src/models/App.js"></script>
+
 
     <script src="compiled/src/views/CardView.js"></script>
     <script src="compiled/src/views/HandView.js"></script>
@@ -23,8 +25,8 @@
       var app = new App();
       var appView = new AppView({model: app});
       appView.$el.appendTo('body');
-      var playerHand = app.get('playerHand');
-      var dealerHand = app.get('dealerHand');
+      var playerHand = app.get('game').get('playerHand');
+      var dealerHand = app.get('game').get('dealerHand');
     </script>
 
   </body>
