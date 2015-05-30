@@ -16,11 +16,15 @@ describe 'hand collection spec', ->
   describe 'bust', ->
     it 'should bust when score is over 21', ->
       bustSpy = sinon.spy Hand.prototype,'bust'
-      hand.hit()
-      hand.hit()
-      hand.hit()
-      hand.hit()
-      hand.hit()
-      hand.hit()
+      hand.cheat 12, 1
+      hand.cheat 12, 1
       expect(bustSpy).to.have.been.called
+  describe 'dealerStand', ->
+    it 'should stand when the score is between 17 and 21', ->
+      standSpy = sinon.spy Hand.prototype, 'stand'
+      hand.reset()
+      hand.cheat 12, 1
+      hand.cheat 9, 1
+      hand.dealerTurn()
+      expect(standSpy).to.have.been.called
 

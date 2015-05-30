@@ -10,7 +10,6 @@ class window.Hand extends Backbone.Collection
     card
 
   stand: ->
-    console.log "I stand here!"
     @trigger 'stand'
 
   hasAce: -> @reduce (memo, card) ->
@@ -51,3 +50,7 @@ class window.Hand extends Backbone.Collection
 
   checkScore: ->
     Math.min.apply null, @scores()
+
+  cheat: (rank, suit) ->
+    card = new Card rank: rank, suit: suit
+    @add(card)
