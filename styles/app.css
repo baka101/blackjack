@@ -14,3 +14,66 @@
 .hand {
   overflow: auto;
 }
+
+.popup {
+  background-image: url('../img/mr-t.jpg');
+  background-size: 100% auto;
+  height: 98%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left:0;
+}
+
+.inYourFace {
+  font-size: 90px;
+  color: yellow;
+  text-align: center;
+
+/*  -webkit-animation-name: spin;
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-iteration-count: 3;
+  -webkit-animation-timing-function: linear;*/
+/*  -moz-animation-name: spin;
+  -moz-animation-duration: 4000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 4000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;*/
+
+  animation-name: spin;
+  animation-duration: 400ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+
+/*  animation-name: grow;
+  animation-duration: 1000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;*/
+}
+
+/*@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}*/
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+        font-size: 10px;
+    }
+    to {
+        transform:rotate(360deg);
+        font-size: 90px;
+    }
+}
+
+/*@keyframes grow {
+    from {
+        font-size: 10px;
+    }
+    to {
+        font-size: 90px;
+    }
+}*/

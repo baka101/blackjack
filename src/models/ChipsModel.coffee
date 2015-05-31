@@ -1,7 +1,7 @@
 class window.ChipsModel extends Backbone.Model
 
   initialize: ->
-    @set 'numChips', 1000
+    @set 'numChips', 100
     @set 'bet', 0
 
 
@@ -10,7 +10,8 @@ class window.ChipsModel extends Backbone.Model
       @set 'bet', @get('bet') + betAmount
       @set 'numChips', @get('numChips') - betAmount
     else
-      alert "You outta money foo'!"
+      # alert "You outta money foo'!"
+      @trigger 'outtaMoney', @
 
   dealerWin: ->
     @set 'bet', 0
